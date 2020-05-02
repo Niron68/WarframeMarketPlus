@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using WarframeMarketPlus.ViewModel;
 using Xamarin.Forms;
+using Warframe;
 
 namespace WarframeMarketPlus
 {
@@ -32,16 +34,41 @@ namespace WarframeMarketPlus
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            butRefreshPrice.IsEnabled = false;
-            await DepotItems.RefreshAllPrice();
-            butRefreshPrice.IsEnabled = true;
+            if(Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await DisplayAlert("Attention", "Vous semblez ne pas être connecté à internet !", "OK");
+            }
+            string test = await PriceGetter.Test();
+            if (!string.IsNullOrEmpty(test))
+            {
+                await DisplayAlert("Erreur", test, "OK");
+            }
         }
 
         private async void butRefreshPrice_Clicked(object sender, EventArgs e)
         {
-            butRefreshPrice.IsEnabled = false;
-            await DepotItems.RefreshAllPrice();
-            butRefreshPrice.IsEnabled = true;
+            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                butRefreshPrice.IsEnabled = false;
+                await DepotItems.RefreshAllPrice();
+                butRefreshPrice.IsEnabled = true;
+            }
+            else
+            {
+                await DisplayAlert("Attention", "Vous semblez ne pas être connecté à internet !", "OK");
+            }
+        }
+
+        private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(entSearch.Text))
+            {
+                listItems.ItemsSource = DepotItems.Order(DepotItems.Filter(entSearch.Text));
+            }
+            else
+            {
+                listItems.ItemsSource = DepotItems.Items;
+            }
         }
     }
 }

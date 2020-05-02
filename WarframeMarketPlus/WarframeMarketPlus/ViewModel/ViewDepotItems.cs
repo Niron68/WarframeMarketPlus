@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Warframe;
 using Xamarin.Forms;
@@ -49,12 +50,33 @@ namespace WarframeMarketPlus.ViewModel
 
         public async Task RefreshAllPrice()
         {
-            foreach(var item in _items)
+            await Task.Run(() =>
             {
-                await item.RefreshPrice();
-                await _depotItems.RefreshItem(item.Item);
-            }
-            
+                List<Task> tasks = new List<Task>();
+                foreach(var item in _items)
+                {
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        await item.RefreshPrice();
+                        await _depotItems.RefreshItem(item.Item);
+                    }));
+                }
+                Task.WaitAll(tasks.ToArray());
+            });
+        }
+
+        public ObservableCollection<ViewItem> Order(ObservableCollection<ViewItem> list)
+        {
+            return new ObservableCollection<ViewItem>(list.OrderByDescending(i => i.MinPrice));
+        }
+
+        public ObservableCollection<ViewItem> Filter(string text)
+        {
+            var temp =
+                (from it in Items
+                 where it.Name.ToLower().Contains(text.ToLower())
+                 select it).ToList();
+            return new ObservableCollection<ViewItem>(temp);
         }
     }
 }

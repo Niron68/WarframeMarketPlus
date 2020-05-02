@@ -25,17 +25,22 @@ namespace Warframe
             {
                 List<Item> items = new List<Item>();
                 Dictionary<string, string> primes = await PriceGetter.GetAllPrime();
+                List<Task> tasks = new List<Task>();
                 foreach (KeyValuePair<string, string> item in primes)
                 {
-                    items.Add(await Item.Create(item.Key, item.Value));
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        items.Add(await Item.Create(item.Key, item.Value));
+                    }));
                 }
+                Task.WaitAll(tasks.ToArray());
                 items = items.OrderByDescending(i => i.MinPrice).ToList();
                 await dbConn.InsertAllAsync(items);
                 lst.AddRange(items);
             }
             //else
             //{
-            //    foreach(var el in lst)
+            //    foreach (var el in lst)
             //    {
             //        await dbConn.DeleteAsync(el);
             //    }

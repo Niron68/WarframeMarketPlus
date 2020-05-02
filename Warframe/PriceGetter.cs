@@ -60,5 +60,16 @@ namespace Warframe
             return res;
         }
 
+        public async static Task<string> Test()
+        {
+            string res = "";
+            using(HttpClient client = new HttpClient())
+            {
+                string link = BaseLink + "nova_prime_chassis/statistics";
+                res = await client.GetStringAsync(link);
+            }
+            return res;
+        }
+
     }
 }
