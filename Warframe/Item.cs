@@ -32,10 +32,11 @@ namespace Warframe
 
         }
 
-        private Item(string name, string url)
+        public Item(string name, string url)
         {
             Name = name;
             MarketName = url;
+            //InitializePrice();
         }
 
         public static async Task<Item> Create(string name, string url)
@@ -43,6 +44,11 @@ namespace Warframe
             Item item = new Item(name, url);
             item.MinPrice = await PriceGetter.GetPrice(item.MarketName);
             return item;
+        }
+
+        public async void InitializePrice()
+        {
+            MinPrice = await PriceGetter.GetPrice(MarketName);
         }
     }
 }

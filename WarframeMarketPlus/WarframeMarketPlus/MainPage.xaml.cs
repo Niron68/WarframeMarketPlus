@@ -18,6 +18,7 @@ namespace WarframeMarketPlus
     {
 
         App monApp = Application.Current as App;
+        public int Nomble { get; set; }
         public ViewDepotItems DepotItems
         {
             get
@@ -39,15 +40,18 @@ namespace WarframeMarketPlus
                 await DisplayAlert("Attention", "Vous semblez ne pas être connecté à internet !", "OK");
             }
             string test = await PriceGetter.Test();
-            if (!string.IsNullOrEmpty(test))
+            if (string.IsNullOrEmpty(test))
             {
-                await DisplayAlert("Erreur", test, "OK");
+                await DisplayAlert("Erreur", "Erreur dans la récupération des données", "OK");
             }
         }
 
         private async void butRefreshPrice_Clicked(object sender, EventArgs e)
         {
-            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            //DepotItems depotItems = new DepotItems(FileSystem.AppDataDirectory);
+            //List<Item> item = new List<Item>(await depotItems.AllItems());
+            //await DisplayAlert("Info", DepotItems.Items.Count.ToString(), "OK");
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 butRefreshPrice.IsEnabled = false;
                 await DepotItems.RefreshAllPrice();

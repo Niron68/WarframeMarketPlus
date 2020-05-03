@@ -23,18 +23,7 @@ namespace Warframe
             List<Item> lst = await dbConn.Table<Item>().ToListAsync();
             if(lst.Count == 0)
             {
-                List<Item> items = new List<Item>();
-                Dictionary<string, string> primes = await PriceGetter.GetAllPrime();
-                List<Task> tasks = new List<Task>();
-                foreach (KeyValuePair<string, string> item in primes)
-                {
-                    tasks.Add(Task.Run(async () =>
-                    {
-                        items.Add(await Item.Create(item.Key, item.Value));
-                    }));
-                }
-                Task.WaitAll(tasks.ToArray());
-                items = items.OrderByDescending(i => i.MinPrice).ToList();
+                List<Item> items = await GetAllPrime();
                 await dbConn.InsertAllAsync(items);
                 lst.AddRange(items);
             }
@@ -45,8 +34,27 @@ namespace Warframe
             //        await dbConn.DeleteAsync(el);
             //    }
             //}
+            //List<Item> lst2 = await dbConn.Table<Item>().ToListAsync();
             lst = lst.OrderByDescending(i => i.MinPrice).ToList();
             return lst;
+        }
+
+        private async Task<List<Item>> GetAllPrime()
+        {
+            List<Item> items = new List<Item>();
+            Dictionary<string, string> primes = await PriceGetter.GetAllPrime();
+            List<Task> tasks = new List<Task>();
+            foreach (KeyValuePair<string, string> prime in primes)
+            {
+                tasks.Add(Task.Run(async () =>
+                {
+                    items.Add(await Item.Create(prime.Key, prime.Value));
+                }));
+                //items.Add(await Item.Create(prime.Key, prime.Value));
+            }
+            Task.WaitAll(tasks.ToArray());
+            items = items.OrderByDescending(i => i.MinPrice).ToList();
+            return items;
         }
 
         public async Task<bool> AddItem(Item item)
@@ -66,7 +74,7 @@ namespace Warframe
 
         public async Task RefreshItem(Item item)
         {
-            await AddItem(item);
+            await dbConn.UpdateAsync(item);
         }
     }
 }

@@ -16,7 +16,9 @@ namespace WarframeMarketPlus
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage mainPage = new MainPage();
+            MainPage = mainPage;
+            mainPage.Nomble = DepotItems.Items.Count;
         }
 
         protected override void OnStart()

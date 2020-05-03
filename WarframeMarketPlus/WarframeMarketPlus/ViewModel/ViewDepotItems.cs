@@ -13,13 +13,16 @@ namespace WarframeMarketPlus.ViewModel
     {
         public DepotItems _depotItems;
 
+        private bool finished = true;
+
         private ObservableCollection<ViewItem> _items;
         public ObservableCollection<ViewItem> Items
         {
             get
             {
-                if (_items.Count == 0)
+                if (_items.Count == 0 && finished)
                 {
+                    finished = false;
                     Task.Run(async () =>
                     {
                         var allItems = await _depotItems.AllItems();
@@ -30,6 +33,7 @@ namespace WarframeMarketPlus.ViewModel
                                _items.Add(new ViewItem(i));
                            }
                        });
+                        finished = true;
                     });
                 }
                 return _items;
