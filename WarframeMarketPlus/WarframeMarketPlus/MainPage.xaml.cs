@@ -39,7 +39,7 @@ namespace WarframeMarketPlus
             {
                 await DisplayAlert("Attention", "Vous semblez ne pas être connecté à internet !", "OK");
             }
-            string test = await PriceGetter.Test();
+            string test = await WMGetter.Test();
             if (string.IsNullOrEmpty(test))
             {
                 await DisplayAlert("Erreur", "Erreur dans la récupération des données", "OK");

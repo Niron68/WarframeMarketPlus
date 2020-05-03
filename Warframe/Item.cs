@@ -18,6 +18,7 @@ namespace Warframe
 
         public int MinPrice { get; set; }
 
+        [Ignore]
         public string Price
         {
             get
@@ -42,13 +43,13 @@ namespace Warframe
         public static async Task<Item> Create(string name, string url)
         {
             Item item = new Item(name, url);
-            item.MinPrice = await PriceGetter.GetPrice(item.MarketName);
+            item.MinPrice = await WMGetter.GetPrice(item.MarketName);
             return item;
         }
 
         public async void InitializePrice()
         {
-            MinPrice = await PriceGetter.GetPrice(MarketName);
+            MinPrice = await WMGetter.GetPrice(MarketName);
         }
     }
 }

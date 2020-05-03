@@ -81,7 +81,7 @@ namespace WarframeMarketPlus.ViewModel
 
         public async Task RefreshPrice()
         {
-            MinPrice = await PriceGetter.GetPrice(MarketName);
+            MinPrice = await WMGetter.GetPrice(MarketName);
         }
     }
 }

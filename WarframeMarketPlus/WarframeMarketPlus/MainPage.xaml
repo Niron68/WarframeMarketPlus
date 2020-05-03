@@ -9,8 +9,8 @@
              x:Name="MaPage"
              BindingContext="{x:Reference MaPage}">
 
-    <StackLayout Padding="30">
-        <StackLayout Orientation="Horizontal">
+    <StackLayout>
+        <StackLayout Orientation="Horizontal" Padding="30,15">
             <Entry Placeholder="Item name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
             <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
         </StackLayout>

@@ -10,7 +10,7 @@ namespace Warframe
 {
     public class DepotItems
     {
-        private SQLiteAsyncConnection dbConn;
+        public SQLiteAsyncConnection dbConn;
 
         public DepotItems(string path)
         {
@@ -42,7 +42,7 @@ namespace Warframe
         private async Task<List<Item>> GetAllPrime()
         {
             List<Item> items = new List<Item>();
-            Dictionary<string, string> primes = await PriceGetter.GetAllPrime();
+            Dictionary<string, string> primes = await WMGetter.GetAllPrime();
             List<Task> tasks = new List<Task>();
             foreach (KeyValuePair<string, string> prime in primes)
             {
