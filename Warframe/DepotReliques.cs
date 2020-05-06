@@ -52,7 +52,7 @@ namespace Warframe
                     List<Relique> reliques = await WMGetter.GetReliques(item);
                     foreach (Relique relique in reliques)
                     {
-                        if (res.Exists(i => i.Equals(relique)))
+                        if (res.Contains(relique))
                         {
                             res[res.IndexOf(relique)].Add(relique);
                         }
@@ -61,8 +61,8 @@ namespace Warframe
                             res.Add(relique);
                         }
                     }
-            }));
-        }
+                }));
+            }
             Task.WaitAll(tasks.ToArray());
             res = res.OrderByDescending(i => i.AveragePrice).ToList();
             return res;

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WarframeMarketPlus.Home">
+    <ContentPage.Content>
+        <!--<StackLayout>
+            <StackLayout Margin="60,60,60,60" Orientation="Horizontal">
+                <Entry Placeholder="Recherche" HorizontalOptions="FillAndExpand"/>
+                <Button Text="P"/>
+            </StackLayout>
+            <Button Text="Meilleurs Offres" Margin="30,0,30,10" HeightRequest="250" CornerRadius="20" x:Name="butOffres" Clicked="butOffres_Clicked"/>
+            <StackLayout Orientation="Horizontal" Margin="0,40,0,0" HorizontalOptions="FillAndExpand">
+                <Button Text="Arme" HorizontalOptions="StartAndExpand" HeightRequest="200" CornerRadius="20" WidthRequest="200"/>
+                <Button Text="Warframe" HorizontalOptions="EndAndExpand" HeightRequest="200" CornerRadius="20" WidthRequest="200"/>
+            </StackLayout>
+            <Button Text="Relique" WidthRequest="150" HeightRequest="150" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" CornerRadius="20"/>
+        </StackLayout>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry Placeholder="Recherche" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>
+            <Button Text="P" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" />
+            <Button Text="Meilleurs Offres" CornerRadius="20" x:Name="butOffres" Clicked="butOffres_Clicked" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="30,0,30,30" />
+            <Button Text="Arme" CornerRadius="20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,30" />
+            <Button Text="Warframe" CornerRadius="20" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Margin="0,30" />
+            <Button Text="Relique" CornerRadius="20" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

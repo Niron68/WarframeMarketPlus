@@ -73,5 +73,10 @@ namespace WarframeMarketPlus
                 listItems.ItemsSource = DepotItems.Items;
             }
         }
+
+        private async void butBack_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopModalAsync();
+        }
     }
 }

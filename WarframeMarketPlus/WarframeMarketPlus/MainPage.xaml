@@ -12,6 +12,7 @@
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" Padding="30,15">
+            <Button Text="Back" x:Name="butBack" Clicked="butBack_Clicked"/>
             <Entry Placeholder="Item name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
             <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
         </StackLayout>
