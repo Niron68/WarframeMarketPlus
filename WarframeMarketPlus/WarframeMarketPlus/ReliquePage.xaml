@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WarframeMarketPlus.ViewModel;assembly=WarframeMarketPlus"
+             mc:Ignorable="d"
+             x:Class="WarframeMarketPlus.ReliquePage"
+             x:Name="PageRelique"
+             BindingContext="{x:Reference PageRelique}"
+             Title="Relic">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="30,15">
+                <Entry Placeholder="Relic name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
+                <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
+            </StackLayout>
+            <ListView x:Name="listReliques" HasUnevenRows="True" ItemsSource="{Binding DepotReliques.Reliques}" ItemTapped="listReliques_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame CornerRadius="5" BackgroundColor="DarkBlue" Margin="20,2" Padding="0,0">
+                                    <StackLayout Padding="5,5">
+                                        <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayName}" />
+                                        <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayPrice}" />
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

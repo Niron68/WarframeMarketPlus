@@ -18,7 +18,6 @@ namespace WarframeMarketPlus
     {
 
         App monApp = Application.Current as App;
-        public int Nomble { get; set; }
         public ViewDepotItems DepotItems
         {
             get

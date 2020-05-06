@@ -8,7 +8,7 @@ namespace Warframe
 
     public enum Era { Lith, Meso, Neo, Axi, Requiem }
 
-    public enum Rarity { Common = 17, Uncommon = 20, Rare = 10 }
+    public enum Rarity { Common = 17, Uncommon = 20, Rare = 10, Erreur = 0 }
 
     [Table("relique")]
     public class Relique
@@ -81,14 +81,6 @@ namespace Warframe
                 res = this.Ere == relique.Ere && this.Name == relique.Name;
             }
             return res;
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = -277175226;
-            hashCode = hashCode * -1521134295 + Ere.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            return hashCode;
         }
     }
 }

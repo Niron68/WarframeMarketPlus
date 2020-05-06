@@ -77,11 +77,18 @@ namespace Warframe
                     (from it in info.payload.item.items_in_set
                      where it.url_name == item.MarketName
                      select it).First();
-                foreach(Drop drop in item_set.en.drop)
+                foreach (Drop drop in item_set.en.drop)
                 {
                     string[] dropInfo = drop.name.Split(' ');
-                    Relique relique = new Relique((Era) Enum.Parse(typeof(Era), dropInfo[0]), dropInfo[1]);
-                    relique.Add(item, (Rarity)Enum.Parse(typeof(Rarity), dropInfo[2]));
+                    Relique relique = new Relique((Era)Enum.Parse(typeof(Era), dropInfo[0]), dropInfo[1]);
+                    if (Enum.TryParse<Rarity>(dropInfo[2], out Rarity rarity))
+                    {
+                        relique.Add(item, rarity);
+                    }
+                    else
+                    {
+                        relique.Add(item, Rarity.Erreur);
+                    }
                     res.Add(relique);
                 }
             }

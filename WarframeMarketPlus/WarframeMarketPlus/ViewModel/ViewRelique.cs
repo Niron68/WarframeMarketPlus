@@ -52,6 +52,46 @@ namespace WarframeMarketPlus.ViewModel
             }
         }
 
+        public Dictionary<Item, Rarity> Loot
+        {
+            get
+            {
+                return _relique.Loot;
+            }
+            set
+            {
+                if (value != _relique.Loot)
+                {
+                    _relique.Loot = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return Ere + " " + Name;
+            }
+        }
+
+        public float AveragePrice
+        {
+            get
+            {
+                return _relique.AveragePrice;
+            }
+        }
+
+        public string DisplayPrice
+        {
+            get
+            {
+                return "Average Price : " + AveragePrice;
+            }
+        }
+
         public Relique Relique
         {
             get

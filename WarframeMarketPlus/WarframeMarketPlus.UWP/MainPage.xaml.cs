@@ -20,7 +20,7 @@ namespace WarframeMarketPlus.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            Rg.Plugins.Popup.Popup.Init();
             LoadApplication(new WarframeMarketPlus.App());
         }
     }

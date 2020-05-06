@@ -11,14 +11,17 @@ namespace WarframeMarketPlus
     {
 
         public ViewDepotItems DepotItems { get; } = new ViewDepotItems(FileSystem.AppDataDirectory);
+        public ViewDepotReliques DepotReliques { get; }
 
         public App()
         {
+            DepotReliques = new ViewDepotReliques(DepotItems);
             InitializeComponent();
 
-            MainPage mainPage = new MainPage();
-            MainPage = mainPage;
-            mainPage.Nomble = DepotItems.Items.Count;
+            TabbedPage tabbedPage = new TabbedPage();
+            tabbedPage.Children.Add(new MainPage());
+            tabbedPage.Children.Add(new ReliquePage());
+            MainPage = tabbedPage;
         }
 
         protected override void OnStart()
