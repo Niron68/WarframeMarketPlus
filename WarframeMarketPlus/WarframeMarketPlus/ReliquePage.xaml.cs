@@ -23,6 +23,7 @@ namespace WarframeMarketPlus
             }
         }
 
+        public bool Ducats = false;
         public ReliquePage()
         {
             InitializeComponent();
@@ -42,6 +43,15 @@ namespace WarframeMarketPlus
         {
             ViewRelique viewRelique = listReliques.SelectedItem as ViewRelique;
             await PopupNavigation.Instance.PushAsync(new PopupReliquePage(viewRelique));
+        }
+
+        private void swDucats_Toggled(object sender, ToggledEventArgs e)
+        {
+            foreach(ViewRelique relique in DepotReliques.Reliques)
+            {
+                relique.Ducats = swDucats.IsToggled;
+            }
+            listReliques.ItemsSource = DepotReliques.OrderByPlatinium(swDucats.IsToggled);
         }
     }
 }

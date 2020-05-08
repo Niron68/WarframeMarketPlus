@@ -23,6 +23,22 @@ namespace Warframe
 
         public Dictionary<Item, Rarity> Loot { get; set; }
 
+        public bool Ducats { get; set; }
+
+        [Ignore]
+        public float AverageDucats
+        {
+            get
+            {
+                float res = 0;
+                foreach(KeyValuePair<Item, Rarity> item in Loot)
+                {
+                    res += item.Key.Ducats * (int) item.Value;
+                }
+                return res / 101;
+            }
+        }
+
         [Ignore]
         public float AveragePrice
         {
@@ -41,6 +57,7 @@ namespace Warframe
         {
             Ere = era;
             Name = name;
+            Ducats = false;
             Loot = new Dictionary<Item, Rarity>();
         }
 

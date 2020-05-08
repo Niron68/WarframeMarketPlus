@@ -18,6 +18,8 @@ namespace Warframe
 
         public int MinPrice { get; set; }
 
+        public int Ducats { get; set; }
+
         [Ignore]
         public string Price
         {
@@ -44,6 +46,7 @@ namespace Warframe
         {
             Item item = new Item(name, url);
             item.MinPrice = await WMGetter.GetPrice(item.MarketName);
+            item.Ducats = await WMGetter.GetDucats(item.MarketName);
             return item;
         }
 

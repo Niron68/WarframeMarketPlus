@@ -39,6 +39,28 @@ namespace Warframe
             return res;
         }
 
+        public async static Task<int> GetDucats(string item)
+        {
+            int res = 0;
+            string link = BaseLink + item;
+            using (HttpClient client = new HttpClient())
+            {
+                string content = await client.GetStringAsync(link);
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                };
+                WMItemInfo itemInfo = JsonConvert.DeserializeObject<WMItemInfo>(content);
+                Items_In_Set info =
+                    (from it in itemInfo.payload.item.items_in_set
+                     where it.url_name == item
+                     select it).First();
+                res = info.ducats;
+            }
+            return res;
+        }
+
         public async static Task<Dictionary<string, string>> GetAllPrime()
         {
             Dictionary<string, string> res = new Dictionary<string, string>();

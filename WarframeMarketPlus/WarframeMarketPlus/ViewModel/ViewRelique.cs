@@ -68,6 +68,31 @@ namespace WarframeMarketPlus.ViewModel
             }
         }
 
+        public bool Ducats
+        {
+            get
+            {
+                return _relique.Ducats;
+            }
+            set
+            {
+                if(value != _relique.Ducats)
+                {
+                    _relique.Ducats = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("Platinium");
+                }
+            }
+        }
+
+        public bool Platinium
+        {
+            get
+            {
+                return !Ducats;
+            }
+        }
+
         public string DisplayName
         {
             get
@@ -81,6 +106,22 @@ namespace WarframeMarketPlus.ViewModel
             get
             {
                 return _relique.AveragePrice;
+            }
+        }
+
+        public float AverageDucats
+        {
+            get
+            {
+                return _relique.AverageDucats;
+            }
+        }
+
+        public string DisplayDucats
+        {
+            get
+            {
+                return "Average Ducats : " + AverageDucats;
             }
         }
 

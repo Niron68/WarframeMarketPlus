@@ -15,6 +15,7 @@
             <StackLayout Orientation="Horizontal" Padding="30,15">
                 <Entry Placeholder="Relic name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
                 <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
+                <Switch x:Name="swDucats" Toggled="swDucats_Toggled" HorizontalOptions="End"/>
             </StackLayout>
             <ListView x:Name="listReliques" HasUnevenRows="True" ItemsSource="{Binding DepotReliques.Reliques}" ItemTapped="listReliques_ItemTapped">
                 <ListView.ItemTemplate>
@@ -24,7 +25,8 @@
                                 <Frame CornerRadius="5" BackgroundColor="DarkBlue" Margin="20,2" Padding="0,0">
                                     <StackLayout Padding="5,5">
                                         <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayName}" />
-                                        <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayPrice}" />
+                                        <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayPrice}" x:Name="lblPrice" IsVisible="{Binding Platinium}"/>
+                                        <Label TextColor="White" FontAttributes="Bold" Text="{Binding DisplayDucats}" x:Name="lblDucats" IsVisible="{Binding Ducats}"/>
                                     </StackLayout>
                                 </Frame>
                             </StackLayout>

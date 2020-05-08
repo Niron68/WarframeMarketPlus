@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Warframe;
@@ -38,12 +39,28 @@ namespace WarframeMarketPlus.ViewModel
                 }
                 return _reliques;
             }
+            private set
+            {
+                _reliques = value;
+            }
         }
 
         public ViewDepotReliques(ViewDepotItems viewDepotItems)
         {
             _depotReliques = new DepotReliques(viewDepotItems._depotItems);
             _reliques = new ObservableCollection<ViewRelique>();
+        }
+
+        public ObservableCollection<ViewRelique> OrderByPlatinium(bool ducats)
+        {
+            if (ducats)
+            {
+                return new ObservableCollection<ViewRelique>(Reliques.OrderByDescending(i => i.AverageDucats));
+            }
+            else
+            {
+                return new ObservableCollection<ViewRelique>(Reliques.OrderByDescending(i => i.AveragePrice));
+            }
         }
 
     }
