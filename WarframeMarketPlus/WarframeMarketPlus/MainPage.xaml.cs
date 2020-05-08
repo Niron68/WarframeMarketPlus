@@ -31,20 +31,6 @@ namespace WarframeMarketPlus
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-            if(Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await DisplayAlert("Attention", "Vous semblez ne pas être connecté à internet !", "OK");
-            }
-            string test = await WMGetter.Test();
-            if (string.IsNullOrEmpty(test))
-            {
-                await DisplayAlert("Erreur", "Erreur dans la récupération des données", "OK");
-            }
-        }
-
         private async void butRefreshPrice_Clicked(object sender, EventArgs e)
         {
             //DepotItems depotItems = new DepotItems(FileSystem.AppDataDirectory);

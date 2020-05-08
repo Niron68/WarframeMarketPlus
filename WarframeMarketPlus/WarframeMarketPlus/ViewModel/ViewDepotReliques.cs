@@ -51,16 +51,27 @@ namespace WarframeMarketPlus.ViewModel
             _reliques = new ObservableCollection<ViewRelique>();
         }
 
-        public ObservableCollection<ViewRelique> OrderByPlatinium(bool ducats)
+        public ObservableCollection<ViewRelique> OrderByPlatinium(ObservableCollection<ViewRelique> list, bool ducats)
         {
             if (ducats)
             {
-                return new ObservableCollection<ViewRelique>(Reliques.OrderByDescending(i => i.AverageDucats));
+                return new ObservableCollection<ViewRelique>(list.OrderByDescending(i => i.AverageDucats));
             }
             else
             {
-                return new ObservableCollection<ViewRelique>(Reliques.OrderByDescending(i => i.AveragePrice));
+                return new ObservableCollection<ViewRelique>(list.OrderByDescending(i => i.AveragePrice));
             }
+        }
+
+        public ObservableCollection<ViewRelique> Filter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return Reliques;
+            var temp =
+                (from it in Reliques
+                 where it.DisplayName.ToLower().Contains(text.ToLower())
+                 select it).ToList();
+            return new ObservableCollection<ViewRelique>(temp);
         }
 
     }

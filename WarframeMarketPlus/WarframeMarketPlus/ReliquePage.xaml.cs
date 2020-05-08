@@ -31,7 +31,14 @@ namespace WarframeMarketPlus
 
         private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(entSearch.Text))
+            {
+                listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
+            }
+            else
+            {
+                listReliques.ItemsSource = DepotReliques.Reliques;
+            }
         }
 
         private void butRefreshPrice_Clicked(object sender, EventArgs e)
@@ -51,7 +58,7 @@ namespace WarframeMarketPlus
             {
                 relique.Ducats = swDucats.IsToggled;
             }
-            listReliques.ItemsSource = DepotReliques.OrderByPlatinium(swDucats.IsToggled);
+            listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
         }
     }
 }
