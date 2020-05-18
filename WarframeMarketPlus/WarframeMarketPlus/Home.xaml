@@ -35,7 +35,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Entry Placeholder="Recherche" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>
-            <Button Text="P" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" />
+            <Button Text="P" x:Name="butParameter" Clicked="butParameter_Clicked" HorizontalOptions="End" VerticalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" />
             <Button Text="Meilleurs Offres" CornerRadius="20" x:Name="butOffres" Clicked="butOffres_Clicked" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Margin="30,0,30,30" />
             <Button Text="Arme" CornerRadius="20" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,30" />
             <Button Text="Warframe" CornerRadius="20" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Margin="0,30" />

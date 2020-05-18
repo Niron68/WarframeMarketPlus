@@ -1,5 +1,9 @@
 ﻿using SQLite;
+using SQLiteNetExtensions;
+using SQLiteNetExtensions.Attributes;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Warframe
@@ -19,6 +23,11 @@ namespace Warframe
         public int MinPrice { get; set; }
 
         public int Ducats { get; set; }
+        
+        [TextBlob(nameof(ReliquesBlobbed))]
+        public List<string> Reliques { get; set; }
+
+        private string ReliquesBlobbed;
 
         [Ignore]
         public string Price
@@ -39,6 +48,7 @@ namespace Warframe
         {
             Name = name;
             MarketName = url;
+            Reliques = new List<string>();
             //InitializePrice();
         }
 
@@ -47,6 +57,11 @@ namespace Warframe
             Item item = new Item(name, url);
             item.MinPrice = await WMGetter.GetPrice(item.MarketName);
             item.Ducats = await WMGetter.GetDucats(item.MarketName);
+            var list = await WMGetter.GetReliques(item);
+            foreach (var it in list)
+            {
+                item.Reliques.Add(it.Ere.ToString() + " " + it.Name + " " + it.Loot.First().Value.ToString());
+            }
             return item;
         }
 
@@ -54,5 +69,16 @@ namespace Warframe
         {
             MinPrice = await WMGetter.GetPrice(MarketName);
         }
+
+        public override bool Equals(object obj)
+        {
+            bool res = false;
+            if(obj is Item it)
+            {
+                res = it.MarketName == this.MarketName;
+            }
+            return res;
+        }
+
     }
 }

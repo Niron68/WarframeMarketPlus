@@ -26,20 +26,22 @@ namespace WarframeMarketPlus
         public bool Ducats = false;
         public ReliquePage()
         {
+            this.BindingContext = DepotReliques;
             InitializeComponent();
+            listReliques.ItemsSource = DepotReliques.Reliques;
         }
 
-        private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(entSearch.Text))
-            {
-                listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
-            }
-            else
-            {
-                listReliques.ItemsSource = DepotReliques.Reliques;
-            }
-        }
+        //private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (!string.IsNullOrEmpty(entSearch.Text))
+        //    {
+        //        listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
+        //    }
+        //    else
+        //    {
+        //        listReliques.ItemsSource = DepotReliques.Reliques;
+        //    }
+        //}
 
         private void butRefreshPrice_Clicked(object sender, EventArgs e)
         {
@@ -54,11 +56,16 @@ namespace WarframeMarketPlus
 
         private void swDucats_Toggled(object sender, ToggledEventArgs e)
         {
-            foreach(ViewRelique relique in DepotReliques.Reliques)
-            {
-                relique.Ducats = swDucats.IsToggled;
-            }
-            listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
+            DepotReliques.SwitchDucat();
         }
+
+        //private void swDucats_Toggled(object sender, ToggledEventArgs e)
+        //{
+        //    foreach(ViewRelique relique in DepotReliques.Reliques)
+        //    {
+        //        relique.Ducats = swDucats.IsToggled;
+        //    }
+        //    listReliques.ItemsSource = DepotReliques.OrderByPlatinium(DepotReliques.Filter(entSearch.Text), swDucats.IsToggled);
+        //}
     }
 }

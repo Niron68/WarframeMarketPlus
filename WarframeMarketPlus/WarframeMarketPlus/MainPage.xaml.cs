@@ -28,6 +28,7 @@ namespace WarframeMarketPlus
 
         public MainPage()
         {
+            this.BindingContext = DepotItems;
             InitializeComponent();
         }
 
@@ -48,17 +49,17 @@ namespace WarframeMarketPlus
             }
         }
 
-        private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(entSearch.Text))
-            {
-                listItems.ItemsSource = DepotItems.Order(DepotItems.Filter(entSearch.Text));
-            }
-            else
-            {
-                listItems.ItemsSource = DepotItems.Items;
-            }
-        }
+        //private void entSearch_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (!string.IsNullOrEmpty(entSearch.Text))
+        //    {
+        //        listItems.ItemsSource = DepotItems.Order(DepotItems.Filter(entSearch.Text));
+        //    }
+        //    else
+        //    {
+        //        listItems.ItemsSource = DepotItems.Items;
+        //    }
+        //}
 
         private async void butBack_Clicked(object sender, EventArgs e)
         {

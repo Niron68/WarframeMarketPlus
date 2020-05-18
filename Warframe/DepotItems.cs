@@ -72,6 +72,11 @@ namespace Warframe
             return res;
         }
 
+        public async Task DeleteAllItem()
+        {
+            await dbConn.DeleteAllAsync<Item>();
+        }
+
         public async Task RefreshItem(Item item)
         {
             await dbConn.UpdateAsync(item);

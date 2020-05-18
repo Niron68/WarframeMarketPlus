@@ -39,5 +39,10 @@ namespace WarframeMarketPlus
         {
             await Navigation.PushModalAsync(monApp.PageOffres);
         }
+
+        private async void butParameter_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new ParameterPage());
+        }
     }
 }

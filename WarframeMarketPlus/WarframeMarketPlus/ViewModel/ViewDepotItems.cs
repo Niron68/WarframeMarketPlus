@@ -6,14 +6,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Warframe;
 using Xamarin.Forms;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WarframeMarketPlus.ViewModel
 {
-    public class ViewDepotItems
+    public class ViewDepotItems : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public DepotItems _depotItems;
 
         private bool finished = true;
+
+        private string _filter;
+
+        private ObservableCollection<ViewItem> _allItems;
 
         private ObservableCollection<ViewItem> _items;
         public ObservableCollection<ViewItem> Items
@@ -31,6 +44,7 @@ namespace WarframeMarketPlus.ViewModel
                            foreach (var i in allItems)
                            {
                                _items.Add(new ViewItem(i));
+                               _allItems.Add(new ViewItem(i));
                            }
                        });
                         finished = true;
@@ -38,12 +52,38 @@ namespace WarframeMarketPlus.ViewModel
                 }
                 return _items;
             }
+            private set
+            {
+                if(value != _items)
+                {
+                    _items = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public string Filter { get => _filter;
+            set
+            {
+                if(value != _filter)
+                {
+                    _filter = value;
+                    NotifyPropertyChanged();
+                    Search();
+                }
+            }
         }
 
         public ViewDepotItems(string path)
         {
             _depotItems = new DepotItems(path);
             _items = new ObservableCollection<ViewItem>();
+            _allItems = new ObservableCollection<ViewItem>();
+        }
+
+        public async Task DeleteAllItem()
+        {
+            await _depotItems.DeleteAllItem();
         }
 
         public async void AddItem(ViewItem item)
@@ -74,13 +114,28 @@ namespace WarframeMarketPlus.ViewModel
             return new ObservableCollection<ViewItem>(list.OrderByDescending(i => i.MinPrice));
         }
 
-        public ObservableCollection<ViewItem> Filter(string text)
+        public async void Search()
         {
-            var temp =
-                (from it in Items
-                 where it.Name.ToLower().Contains(text.ToLower())
-                 select it).ToList();
-            return new ObservableCollection<ViewItem>(temp);
+            await SearchAsync();
+        }
+
+        private Task SearchAsync()
+        {
+            return Task.Run(() =>
+            {
+                if (string.IsNullOrWhiteSpace(_filter))
+                {
+                    Items = _allItems;
+                }
+                else
+                {
+                    var temp =
+                        (from it in _allItems
+                         where it.Name.ToLower().Contains(_filter.ToLower())
+                         select it).ToList();
+                    Items = new ObservableCollection<ViewItem>(temp);
+                }
+            });
         }
     }
 }

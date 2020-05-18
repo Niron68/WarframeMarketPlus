@@ -6,17 +6,15 @@
              xmlns:local="clr-namespace:WarframeMarketPlus.ViewModel;assembly=WarframeMarketPlus"
              mc:Ignorable="d"
              x:Class="WarframeMarketPlus.MainPage"
-             x:Name="MaPage"
-             BindingContext="{x:Reference MaPage}"
              Title="Item">
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" Padding="30,15">
             <Button Text="Back" x:Name="butBack" Clicked="butBack_Clicked"/>
-            <Entry Placeholder="Item name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
+            <SearchBar Placeholder="Item name" Text="{Binding Filter, Mode=TwoWay}" HorizontalOptions="FillAndExpand" x:Name="entSearch"/>
             <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
         </StackLayout>
-        <ListView x:Name="listItems" HasUnevenRows="True" ItemsSource="{Binding DepotItems.Items}">
+        <ListView x:Name="listItems" HasUnevenRows="True" ItemsSource="{Binding Items}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

@@ -6,18 +6,16 @@
              xmlns:local="clr-namespace:WarframeMarketPlus.ViewModel;assembly=WarframeMarketPlus"
              mc:Ignorable="d"
              x:Class="WarframeMarketPlus.ReliquePage"
-             x:Name="PageRelique"
-             BindingContext="{x:Reference PageRelique}"
              Title="Relic">
     
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" Padding="30,15">
-                <Entry Placeholder="Relic name" HorizontalOptions="FillAndExpand" x:Name="entSearch" TextChanged="entSearch_TextChanged"/>
+                <SearchBar Placeholder="Relic name" Text="{Binding Filter, Mode=TwoWay}" HorizontalOptions="FillAndExpand" x:Name="entSearch" SearchCommand="{Binding FilterCommand}"/>
                 <Button Text="Refresh" x:Name="butRefreshPrice" Clicked="butRefreshPrice_Clicked"/>
-                <Switch x:Name="swDucats" Toggled="swDucats_Toggled" HorizontalOptions="End"/>
+                <Switch x:Name="swDucats" HorizontalOptions="End" IsToggled="{Binding Ducats,Mode=TwoWay}" Toggled="swDucats_Toggled"/>
             </StackLayout>
-            <ListView x:Name="listReliques" HasUnevenRows="True" ItemsSource="{Binding DepotReliques.Reliques}" ItemTapped="listReliques_ItemTapped">
+            <ListView x:Name="listReliques" HasUnevenRows="True" ItemsSource="{Binding Reliques}" BindingContext="{x:Reference swDucats}" ItemTapped="listReliques_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
